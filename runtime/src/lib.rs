@@ -1,4 +1,3 @@
-extern crate memmap;
 extern crate byteorder;
 
 pub mod mmap;

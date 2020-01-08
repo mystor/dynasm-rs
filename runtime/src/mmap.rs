@@ -1,7 +1,13 @@
 use std::ops::{Deref, DerefMut};
 use std::io;
 
-use memmap::{Mmap, MmapMut};
+// use memmap::{Mmap, MmapMut};
+
+#[derive(Debug)]
+struct Mmap;
+
+#[derive(Debug)]
+struct MmapMut;
 
 use crate::AssemblyOffset;
 
@@ -44,6 +50,8 @@ impl ExecutableBuffer {
     /// Create a new executable buffer, backed by a buffer of size `size`.
     /// It will start with an initialized length of 0.
     pub fn new(size: usize) -> io::Result<ExecutableBuffer> {
+        panic!()
+        /* 
         let buffer = if size == 0 {
             None
         } else {
@@ -54,15 +62,21 @@ impl ExecutableBuffer {
             length: 0,
             buffer
         })
+        */
     }
 
     /// Query the backing size of this executable buffer
     pub fn size(&self) -> usize {
+        panic!()
+        /*
         self.buffer.as_ref().map(|b| b.len()).unwrap_or(0) as usize
+        */
     }
 
     /// Change this executable buffer into a mutable buffer.
     pub fn make_mut(self) -> io::Result<MutableBuffer> {
+        panic!()
+            /*
         let buffer = if let Some(map) = self.buffer {
             Some(map.make_mut()?)
         } else {
@@ -73,6 +87,7 @@ impl ExecutableBuffer {
             length: self.length,
             buffer
         })
+            */
     }
 }
 
@@ -80,6 +95,8 @@ impl MutableBuffer {
     /// Create a new mutable buffer, backed by a buffer of size `size`.
     /// It will start with an initialized length of 0.
     pub fn new(size: usize) -> io::Result<MutableBuffer> {
+        panic!()
+        /*
         let buffer = if size == 0 {
             None
         } else {
@@ -90,11 +107,15 @@ impl MutableBuffer {
             length: 0,
             buffer
         })
+        */
     }
 
     /// Query the backing size of this mutable buffer
     pub fn size(&self) -> usize {
+        panic!()
+        /*
         self.buffer.as_ref().map(|b| b.len()).unwrap_or(0) as usize
+        */
     }
 
     /// Set the length of the usable part of this mutable buffer. The length
@@ -105,6 +126,8 @@ impl MutableBuffer {
 
     /// Change this mutable buffer into an executable buffer.
     pub fn make_exec(self) -> io::Result<ExecutableBuffer> {
+        panic!()
+            /*
         let buffer = if let Some(map) = self.buffer {
             Some(map.make_exec()?)
         } else {
@@ -115,6 +138,7 @@ impl MutableBuffer {
             length: self.length,
             buffer
         })
+            */
     }
 }
 
@@ -139,31 +163,40 @@ impl Default for MutableBuffer {
 impl Deref for ExecutableBuffer {
     type Target = [u8];
     fn deref(&self) -> &[u8] {
+        &[]
+        /*
         if let Some(map) = &self.buffer {
             &map[..self.length]
         } else {
             &[]
         }
+        */
     }
 }
 
 impl Deref for MutableBuffer {
     type Target = [u8];
     fn deref(&self) -> &[u8] {
+        &[]
+        /*
         if let Some(map) = &self.buffer {
             &map[..self.length]
         } else {
             &[]
         }
+        */
     }
 }
 
 impl DerefMut for MutableBuffer {
     fn deref_mut(&mut self) -> &mut [u8] {
+        panic!()
+        /*
         if let Some(map) = &mut self.buffer {
             &mut map[..self.length]
         } else {
             &mut []
         }
+        */
     }
 }
